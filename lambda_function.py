@@ -1,7 +1,12 @@
 import boto3
 import json
 import logging
+import os
 from botocore.exceptions import ClientError
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+logger.addHandler(logging.StreamHandler())
 
 def lambda_handler(event, context=None):
     try:
@@ -10,7 +15,7 @@ def lambda_handler(event, context=None):
         try:
             for i in manifest:
                 response = client.update_item(
-                    TableName='kantox-poc-db',
+                    TableName=os.environ['DynamoDB_Table_Name'],
                     Key={
                         "Id": {
                             'N': i,
@@ -23,13 +28,12 @@ def lambda_handler(event, context=None):
                         "#fn": "name"
                     }
                 )
-            logging.info("Updated Successfully")
+            logger.info("Updated Successfully")
+            return {
+                "statusCode": 200,
+                "body": json.dumps('Updated Successfully')
+            }
         except ClientError as e:
-            logging.error(e)
+            logger.error(e)
     except ValueError as e:
-        logging.error(e)
-
-
-
-
-
+        logger.error(e)

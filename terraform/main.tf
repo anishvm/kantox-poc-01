@@ -18,7 +18,7 @@ module "lambda" {
   prefix = var.prefix
   source_path = "../lambda_function.py"
   environment_variables = {
-    db_arn = module.db.db_arn
+    DynamoDB_Table_Name = module.db.table_name
   }
 }
 

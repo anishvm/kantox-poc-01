@@ -58,7 +58,23 @@ resource "aws_lambda_permission" "apigw_lambda" {
   source_arn = "arn:aws:execute-api:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:${aws_api_gateway_rest_api.api.id}/*/${aws_api_gateway_method.method.http_method}${aws_api_gateway_resource.resource.path}"
 }
 
+resource "aws_api_gateway_usage_plan" "api" {
+  name         = "${var.prefix}-usage-plan"
+  description  = "Usage plan for ${var.prefix}"
+
+  api_stages {
+    api_id = aws_api_gateway_rest_api.api.id
+    stage  = aws_api_gateway_stage.stage.stage_name
+  }
+}
+
 resource "aws_api_gateway_api_key" "api" {
   name = "${var.prefix}-api-key"
   description = "API Key for ${var.prefix} API"
+}
+
+resource "aws_api_gateway_usage_plan_key" "main" {
+  key_id        = aws_api_gateway_api_key.api.id
+  key_type      = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.api.id
 }
