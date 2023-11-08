@@ -35,6 +35,27 @@ data "aws_iam_policy_document" "kms" {
   }
   statement {
     effect = "Allow"
+    sid = "AllowSecrets"
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+    }
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:CreateGrant",
+      "kms:GenerateDataKey*"
+      ]
+    resources = ["*"]
+    condition {
+      test     = "StringEquals"
+      values   = ["secretsmanager.${data.aws_caller_identity.current.account_id}.amazonaws.com"]
+      variable = "kms:ViaService"
+    }
+  }
+  statement {
+    effect = "Allow"
     sid = "AllowLambdaRole"
     principals {
       type        = "AWS"

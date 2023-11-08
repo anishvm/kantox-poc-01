@@ -27,4 +27,5 @@ module "api" {
   lambda_function_name = module.lambda.lambda_function_name
   lambda_invoke_arn = module.lambda.lambda_invoke_arn
   prefix = var.prefix
+  kms_key_id = module.kms.kms_key_id
 }
