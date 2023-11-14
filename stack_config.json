@@ -1,0 +1,25 @@
+{
+    "StackName": "kantox-poc",
+    "Parameters": [
+        {
+            "ParameterKey": "Name",
+            "ParameterValue": "kantox-poc"
+        },
+      {
+            "ParameterKey": "AdminPrincipal",
+            "ParameterValue": ""
+        }
+    ],
+    "Capabilities": [
+        "CAPABILITY_IAM",
+        "CAPABILITY_NAMED_IAM"
+    ],
+    "OnFailure": "ROLLBACK",
+    "Tags": [
+        {
+            "Key": "Project",
+            "Value": "POC"
+        }
+    ],
+    "EnableTerminationProtection": true
+}

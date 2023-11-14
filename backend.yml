@@ -9,13 +9,14 @@ Parameters:
     Description: |
       Name of the S3 bucket, DynamoDB table, and IAM role;
       Defaults to "terraform-state-AWS_ACCOUNT_ID"
-    Default: "kantox-poc-1"
+    Default: "kantox-poc"
     Type: String
+    AllowedPattern : ".+"
   AdminPrincipal:
     Description: |
       IAM principal allowed to assume the state management role.
-    Default: ""
     Type: String
+    AllowedPattern : ".+"
 
 #Conditions:
 #  GenerateNames: !Equals [!Ref Name, ""]
