@@ -28,4 +28,4 @@ lambda_config = {
 }
 
 # Name of the IAM admin user who can manage the kms key. Cannot be blank
-admin = "dfgdg"
+admin = ""
