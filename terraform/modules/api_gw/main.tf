@@ -124,3 +124,13 @@ resource "aws_iam_role_policy" "cloudwatch" {
   role   = aws_iam_role.api.id
   policy = data.aws_iam_policy_document.cloudwatch.json
 }
+
+resource "aws_api_gateway_method_settings" "main" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  stage_name  = aws_api_gateway_stage.stage.stage_name
+  method_path = "*/*"
+
+  settings {
+    logging_level   = "INFO"
+  }
+}
