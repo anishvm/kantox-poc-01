@@ -1,5 +1,7 @@
 # Architecture Overview
 
+Refer docs for more information.
+
 ![Alt text](docs/AWS-Architecture.png?raw=true)
 
 
