@@ -1,11 +1,21 @@
-# Deploy Hello World App to Local Minikube Cluster Using GitHub Actions & ArgoCD
+# Architecture Overview
+
+![Alt text](docs/AWS-Architecture.png?raw=true)
+
+
+## 
 
 ## Prerequisites
 - AWS CLI v2
 - Terraform
 
-## Create Backend
+## Getting Started
+
+### Creating Backend
+
+Creates an S3 bucket and related resources to be used in the terraform modules. 
 Update the stack name & parameter values in stack_config.json file. All parameters are mandatory.
+
 ```bash
 aws cloudformation create-stack  --template-body file://backend.yml --cli-input-json file://stack_config.json
 
@@ -13,12 +23,12 @@ aws cloudformation create-stack  --template-body file://backend.yml --cli-input-
 aws cloudformation describe-stacks --stack-name <kantox-poc>
 ```
 
-## Create Stack
+### Creating App Stack
 
 Update the details in terraform/backend.yml file using the outputs of CloudFormation stack.
 Update the variable "**admin**" in terraform/environments/poc.tfvars file with an IAM username and password in the AWS account.  
 
-Note: Use workspaces and create new tfvars files to create multiple environments.
+Note: Use workspaces and create new .tfvars files to create multiple environments.
 ```bash
 cd terraform
 terraform init
@@ -26,7 +36,7 @@ terraform plan -var-file environments/poc.tfvars
 terraform apply -var-file environments/poc.tfvars
 ```
 
-## Test API
+### Testing API
 
 The api gateway endpoint is Terraform output "**url**". Get the API key from the AWS secrets manager.
 Use Postman or something similar and POST request to the API. 
