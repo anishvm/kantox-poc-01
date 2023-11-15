@@ -41,3 +41,29 @@ terraform apply -var-file environments/poc.tfvars
 The api gateway endpoint is Terraform output "**url**". Get the API key from the AWS secrets manager.
 Use Postman or something similar and POST request to the API. 
 Scan the items in DynamoDB table to verify that items are created/updated.
+
+### Example Input
+```bash
+{
+    "12345": {
+        "name": "Mace Windu",
+        "planet": "Haruun Kal",
+        "power_level": 87
+    },
+    "54832": {
+        "name": "Obi-Wan Kenobi",
+        "planet": "Stewjon",
+        "power_level": 85
+    },
+    "78965": {
+        "name": "Rey",
+        "planet": "Jakku",
+        "power_level": 75
+    },
+    "98721": {
+        "name": "Yoda",
+        "planet": "Dagobah",
+        "power_level": 90
+    }
+}
+```
